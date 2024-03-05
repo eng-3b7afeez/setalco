@@ -8,30 +8,31 @@ import TableColumnHeader from "@/components/data-table/column-header-sort-visibi
 import OperationCreateUpdate from "./operation-create-update";
 import { getData, deleteData } from "@/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { Checkbox } from "@/components/ui/checkbox";
 import { format } from "date-fns";
 export const columns = [
-  // {
-  //   id: "select",
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && "indeterminate")
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "user",
     header: ({ column }) => <TableColumnHeader column={column} title="Eng" />,
@@ -41,6 +42,11 @@ export const columns = [
     header: ({ column }) => (
       <TableColumnHeader column={column} title="Customer" />
     ),
+    cell: ({ row }) => {
+      const customer = row.getValue("customer");
+
+      return <div>{customer.toUpperCase()}</div>;
+    },
   },
   {
     accessorKey: "material",
@@ -88,6 +94,30 @@ export const columns = [
       }).format(cost);
 
       return <div className="text-center">{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "design",
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title="Design" />
+    ),
+    cell: ({ row }) => {
+      const design = parseFloat(row.getValue("design"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(design);
+
+      return <div className="text-center">{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "count",
+    header: ({ column }) => <TableColumnHeader column={column} title="Count" />,
+    cell: ({ row }) => {
+      const count = parseFloat(row.getValue("count"));
+
+      return <div className="text-center">{count}</div>;
     },
   },
   {
@@ -203,7 +233,7 @@ export const columns = [
                   {`Customer : ${operation.customer} Operation will be permenantly removed`}
                 </Label>
               </div>
-              <Button size="sm" className="p-3 m-3">
+              <Button size="sm" className="p-3 m-3" variant="destructive">
                 <RxTrash
                   className="h-4 w-4"
                   onClick={() => deleteOperationMutation.mutate(operation)}

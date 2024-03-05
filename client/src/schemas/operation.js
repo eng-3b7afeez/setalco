@@ -9,6 +9,8 @@ const OperationFormSchema = z.object({
   thickness: z.string().or(z.number()),
   work_duration: z.string().or(z.number()),
   cost: z.string().or(z.number()),
+  design: z.string().or(z.number()),
+  count: z.string().or(z.number()),
   laser_cut: z.boolean().default(true),
   completed: z.boolean().default(false),
 });

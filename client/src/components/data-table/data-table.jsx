@@ -64,7 +64,7 @@ const DataTable = ({ columns, data, consumer }) => {
         <CreateDialog consumer={consumer} />
       </div>
       <div className="flex rounded-md border">
-        <Table>
+        <Table className="table-auto">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

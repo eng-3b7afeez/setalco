@@ -73,11 +73,13 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.linkButton {
-  @apply border-orange-400 hover:border-orange-800 transition-all;
-}
-.active {
-  @apply underline text-orange-600;
+  #root {
+    @apply w-full h-svh;
+  }
+  .linkButton {
+    @apply border-orange-400 hover:border-orange-800 transition-all;
+  }
+  .active {
+    @apply underline text-orange-600;
+  }
 }

@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { RxFileText, RxTrash } from "react-icons/rx";
 import {
   VscWorkspaceTrusted,
@@ -9,34 +14,40 @@ import {
 import TableColumnHeader from "@/components/data-table/column-header-sort-visibility";
 import CustomerCreateUpdate from "./customer-create-update";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { deleteData } from "@/api";
 import { useMutation, useQueryClient } from "react-query";
 export const columns = [
-  // {
-  //   id: "select",
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && "indeterminate")
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => <TableColumnHeader column={column} title="Name" />,
+    cell: ({ row }) => {
+      const name = row.getValue("name");
+
+      return <div>{name.toUpperCase()}</div>;
+    },
   },
   {
     accessorKey: "mobile",
@@ -131,12 +142,14 @@ export const columns = [
                   {`Customer : ${customer.name} will be permenantly removed`}
                 </Label>
               </div>
-              <Button size="sm" className="p-3 m-3">
-                <RxTrash
-                  className="h-4 w-4"
-                  onClick={() => deleteCustomerMutation.mutate(customer)}
-                />
-              </Button>
+              <DialogClose asChild>
+                <Button size="sm" className="p-3 m-3" variant="destructive">
+                  <RxTrash
+                    className="h-4 w-4"
+                    onClick={() => deleteCustomerMutation.mutate(customer)}
+                  />
+                </Button>
+              </DialogClose>
             </div>
           </DialogContent>
         </Dialog>

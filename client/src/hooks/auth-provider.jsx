@@ -16,13 +16,17 @@ const AuthProvider = ({ children, ...props }) => {
   const [user, setUser] = useState(
     localStorage.getItem("authTokens")
       ? jwtDecode(JSON.parse(localStorage.getItem("authTokens")).access)
-      : {}
+      : null
   );
 
   useEffect(() => {
+    setUser(() =>
+      localStorage.getItem("authTokens")
+        ? jwtDecode(JSON.parse(localStorage.getItem("authTokens")).access)
+        : null
+    );
     console.log("connection started");
-    // api.defaults.headers.common["Authorization"] = access;
-  }, [user, authTokens]);
+  }, [authTokens]);
 
   const value = {
     user,

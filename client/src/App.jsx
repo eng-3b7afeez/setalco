@@ -3,7 +3,7 @@ import { Login, Home, Customers, Operations, Layout } from "@/pages";
 import { Header, Footer } from "@/components";
 const App = () => {
   return (
-    <main className="flex flex-col w-full">
+    <main className="flex flex-col h-svh relative w-svw">
       <Header />
       <Routes>
         <Route path="/login" element={<Login />} />

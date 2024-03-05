@@ -23,6 +23,8 @@ class Operation(models.Model):
     thickness = models.DecimalField(max_digits=10, decimal_places=2)
     work_duration = models.DecimalField(max_digits=10, decimal_places=2)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
+    design = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    count = models.IntegerField(default=1)
     laser_cut = models.BooleanField(default=True)
     completed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

@@ -6,8 +6,12 @@ from rest_framework.decorators import api_view
 def endpoints(request):
     urls = [
         "admin/",
-        "api/ auth/",
-        "api/ token/ [name='token_obtain_pair']",
-        "api/ token/refresh/ [name='token_refresh']",
+        "api/auth/",
+        "api/token/ [name='token_obtain_pair']",
+        "api/token/refresh/ [name='token_refresh']",
+        "api/users/",
+        "api/customers/",
+        "api/operations/",
+        "api/todos/",
     ]
     return Response(urls)

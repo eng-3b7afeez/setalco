@@ -11,7 +11,7 @@ const Operations = () => {
   } = useQuery("operations", () => getData("operations/"));
 
   return (
-    <div className="flex mx-auto">
+    <div className="flex mx-auto object-scale-down w-min">
       {isLoading ? (
         <p>Loading.....</p>
       ) : isError ? (

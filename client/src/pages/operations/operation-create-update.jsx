@@ -79,12 +79,13 @@ const OperationCreateUpdate = ({ currentOperation }) => {
           thickness: "",
           work_duration: "",
           cost: "",
+          design: "",
+          count: 1,
           laser_cut: true,
           completed: false,
         },
   });
   const onSubmit = (data) => {
-    console.log(data);
     if (currentOperation) {
       updateOperationMutation.mutate(data);
     } else {
@@ -98,6 +99,8 @@ const OperationCreateUpdate = ({ currentOperation }) => {
         thickness: "",
         work_duration: "",
         cost: "",
+        design: "",
+        count: 1,
         laser_cut: true,
         completed: false,
       });
@@ -319,12 +322,40 @@ const OperationCreateUpdate = ({ currentOperation }) => {
                 />
                 <FormField
                   control={form.control}
+                  name="count"
+                  render={({ field }) => (
+                    <FormItem className="flex w-full gap-4 place-items-center">
+                      <FormLabel>Count: </FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="count" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex w-full gap-5">
+                <FormField
+                  control={form.control}
                   name="cost"
                   render={({ field }) => (
                     <FormItem className="flex w-full gap-4 place-items-center">
                       <FormLabel>Cost: </FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="cost" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="design"
+                  render={({ field }) => (
+                    <FormItem className="flex w-full gap-4 place-items-center">
+                      <FormLabel>Design: </FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="design" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

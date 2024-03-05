@@ -15,16 +15,16 @@ const Home = () => {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="flex w-full max-w-xs m-auto"
-      // onMouseEnter={plugin.current.stop}
-      // onMouseLeave={plugin.current.reset}
+      className="flex w-full m-auto max-w-lg"
+      onMouseEnter={plugin.current.stop}
+      onMouseLeave={plugin.current.play}
     >
       <CarouselContent>
         {images.map((image, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
+                <CardContent className="flex aspect-square  items-center justify-center p-6">
                   <img src={image} alt="" />
                 </CardContent>
               </Card>

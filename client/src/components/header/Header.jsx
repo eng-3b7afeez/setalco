@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <div className="flex justify-between p-5 static">
       <div>
-        {user.username && (
+        {user?.username && (
           <div>
             <Avatar>
               <AvatarImage
@@ -20,7 +20,7 @@ const Header = () => {
               />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <span>{user.username}</span>
+            <span>{user?.username}</span>
           </div>
         )}
       </div>
@@ -38,7 +38,7 @@ const Header = () => {
         <Side />
       </div>
       <div className="flex gap-4 place-items-center">
-        {user.username && <Logout />}
+        {user?.username && <Logout />}
         <ModeToggle />
       </div>
     </div>

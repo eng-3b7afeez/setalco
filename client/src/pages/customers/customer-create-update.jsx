@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DialogClose } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -62,23 +63,22 @@ const CustomerCreateUpdate = ({ currentCustomer }) => {
           mobile: "",
           mobile2: "",
           company: "",
-          rating: "",
-          comment: "new customer",
+          rating: "WARNING",
+          comment: "--------",
         },
   });
   const onSubmit = (data) => {
+    console.log(data);
     if (currentCustomer) {
       updateCustomerMutation.mutate(data);
     } else {
+      data.mobile2 == ""
+        ? (data = { ...data, mobile2: data.mobile })
+        : (data = { ...data });
+      data.company == ""
+        ? (data = { ...data, company: data.name })
+        : (data = { ...data });
       addCustomerMutation.mutate(data);
-      form.reset({
-        name: "",
-        mobile: "",
-        mobile2: "",
-        company: "",
-        rating: "",
-        comment: "",
-      });
     }
   };
   return (
@@ -215,9 +215,11 @@ const CustomerCreateUpdate = ({ currentCustomer }) => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
+            <DialogClose asChild>
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            </DialogClose>
           </form>
         </Form>
       </CardContent>

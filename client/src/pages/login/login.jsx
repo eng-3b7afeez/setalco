@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <div className="flex place-content-center ">
       {user?.username ? (
-        <Navigate to={"/"} />
+        <Navigate to={"/"} replace={true} />
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
